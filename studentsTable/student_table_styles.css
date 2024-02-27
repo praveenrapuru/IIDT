@@ -11,9 +11,9 @@ table,th,td {
   background-color:green;
   color: white;
 }
-.lightYellow {
-  background-color: rgb(247, 247, 160);
+.lightGreen {
+  background-color: rgb(159, 238, 159);
 }
-.pastelYellow {
-  background-color: rgb(244, 247, 106);
+.pastelGreen {
+  background-color: rgb(187, 243, 187);
 }
