@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <title>Interactive Form with Validation</title>
+    <style>
+      
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }   
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+    </style>
+    <script>
+
+        const form = document.getElementById('signup-form');
+
+        const showError = (input, message) => {
+            const errorDiv = input.nextElementSibling;
+            errorDiv.innerText = message;
+            errorDiv.style.display = 'block';
+        };
+
+        const showSuccess = input => {
+            const errorDiv = input.nextElementSibling;
+            errorDiv.style.display = 'none';
+        };
+
+        const checkRequired = inputArray => {
+            inputArray.forEach(input => {
+                if (input.value.trim() === '') {
+                    showError(input, `${getFieldName(input)} is required`);
+                } else {
+                    showSuccess(input);
+                }
+            });
+        };
+
+        const getFieldName = input => {
+            return input.id.charAt(0).toUpperCase() + input.id.slice(1);
+        };
+
+        const checkLength = (input, min, max) => {
+            if (input.value.length < min) {
+                showError(input, `${getFieldName(input)} must be at least ${min} characters`);
+            } else if (input.value.length > max) {
+                showError(input, `${getFieldName(input)} must be less than ${max} characters`);
+            } else {
+                showSuccess(input);
+            }
+        };
+
+        const checkEmail = input => {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!re.test(input.value.trim())) {
+                showError(input, 'Invalid email format');
+            } else {
+                showSuccess(input);
+            }
+        };
+
+        const checkPasswordMatch = (input1, input2) => {
+            if (input1.value !== input2.value) {
+                showError(input2, 'Passwords do not match');
+            }
+        };
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+
+            checkRequired([username, email, password]);
+            checkLength(username, 3, 15);
+            checkLength(password, 6, 25);
+            checkEmail(email);
+            checkPasswordMatch(password, confirmPassword);
+        });
+
+    </script>
+</head>
+<body>
+
+    <h1>Sign Up Form</h1>
+
+    <form id="signup-form" action="#" method="post">
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <div class="error-message" id="username-error"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <div class="error-message" id="email-error"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <div class="error-message" id="password-error"></div>
+        </div>
+
+        <button type="submit">Sign Up</button>
+    </form>
+
+    <script src="script.js"></script>
+</body>
+</html>

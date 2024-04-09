@@ -1,0 +1,70 @@
+/* CSS Variables */
+:root {
+  --grid-column-width: 300px;
+  --grid-gap: 20px;
+}
+
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+
+main {
+  padding: 20px;
+}
+
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+
+/* Grid Layout */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(var(--grid-column-width), 1fr));
+  grid-gap: var(--grid-gap);
+}
+
+.grid-item {
+  border: 1px solid #ccc;
+  padding: 20px;
+  text-align: center;
+}
+
+.grid-item img {
+  max-width: 100%;
+  height: auto;
+  transition: transform 0.3s ease-in-out;
+}
+
+.grid-item img:hover {
+  transform: scale(1.1);
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  :root {
+      --grid-column-width: 200px;
+      --grid-gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+      --grid-column-width: 150px;
+      --grid-gap: 5px;
+  }
+}
+
+
